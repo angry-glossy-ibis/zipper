@@ -17,7 +17,7 @@ jobs:
         name: Set variables
         id: vars
         run: |
-          echo ::set-output name=filename::f-out-nevada-text-fix-${GITHUB_REF/refs\/tags\//}.zip
+          echo ::set-output name=filename::f-out-nevada-text-fix-${GITHUB_REF/refs\/tags\/v/}.zip
       -
         name: Build project
         run: |
