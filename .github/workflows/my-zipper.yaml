@@ -18,12 +18,12 @@ jobs:
         id: vars
         run: |
           echo ::set-output name=filename::f-out-nevada-text-fix-${GITHUB_REF/refs\/tags\/v/}.zip
+          echo ::set-output name=srcdir::src
       -
         name: Build project
         run: |
-          mkdir dist
-          find src/ -type f -exec sh -c "iconv -f UTF-8 -t CP1251 -- '{}' > 'dist/{}'" \;
-          zip -9TXlr ${{ steps.vars.outputs.filename }} dist/
+          find ${{ steps.vars.outputs.srcdir }} -type f -exec sh -c "iconv -f UTF-8 -t CP1251 -- '{}' > '{}.tmp' && mv -- '{}.tmp' '{}'" \;
+          zip -9TXlr ${{ steps.vars.outputs.filename }} ${{ steps.vars.outputs.srcdir }}
       -
         name: Create release
         env:
