@@ -22,7 +22,7 @@ jobs:
         name: Build project
         run: |
           mkdir dist
-          find src/ -type f -exec iconv -f UTF-8 -t CP1251 -- '{}' > 'dist/{}.tmp'
+          find src/ -type f -exec iconv -f UTF-8 -t CP1251 -- '{}' > 'dist/{}.tmp' \;
           zip -9TXlr ${{ steps.vars.outputs.filename }} dist/
       -
         name: Create release
