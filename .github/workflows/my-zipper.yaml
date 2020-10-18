@@ -16,11 +16,12 @@ jobs:
       -
         name: Set variables
         id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+        run: |
+          echo ::set-output name=filename::f-out-nevada-text-fix-${GITHUB_REF/refs\/tags\//}.zip
       -
         name: Build project
         run: |
-          zip -9TXr my-super-duper.zip dist/
+          zip -9TXr ${{ steps.vars.outputs.filename }} dist/
       -
         name: Create release
         env:
@@ -40,6 +41,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           asset_content_type: application/zip
-          asset_name: my-super-duper-${{ steps.vars.outputs.tag }}.zip
-          asset_path: ./my-super-duper.zip
+          asset_name: ${{ steps.vars.outputs.filename }}
+          asset_path: ./${{ steps.vars.outputs.filename }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}
