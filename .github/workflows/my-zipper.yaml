@@ -14,6 +14,10 @@ jobs:
         name: Checkout source code
         uses: actions/checkout@v2
       -
+        name: Set variables
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+      -
         name: Build project
         run: |
           zip -9TXr my-super-duper.zip dist/
@@ -36,6 +40,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           asset_content_type: application/zip
-          asset_name: my-super-duper-${{ github.ref }}.zip
+          asset_name: my-super-duper-${{ steps.vars.outputs.tag }}.zip
           asset_path: ./my-super-duper.zip
           upload_url: ${{ steps.create_release.outputs.upload_url }}
