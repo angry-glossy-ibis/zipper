@@ -36,6 +36,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./my-super-duper.zip
-          asset_name: my-super-duper.zip
+          asset_path: ./my-super-duper2.zip
+          asset_name: my-super-duper2.zip
           asset_content_type: application/zip
