@@ -3,11 +3,11 @@ on:
     tags:
     - 'v*'
 
-name: My Upload Release Asset!
+name: My Upload Release Asset!!!!!!!!!!!!!!!!!
 
 jobs:
   build:
-    name: Upload Release Asset!
+    name: Upload Release Asset!!!!!!!!!!!!!!!
     runs-on: ubuntu-latest
     steps:
       -
@@ -21,7 +21,9 @@ jobs:
       -
         name: Build project
         run: |
-          zip -9TXr ${{ steps.vars.outputs.filename }} dist/
+          mkdir dist
+          find src/ -type f -exec iconv -f UTF-8 -t CP1251 -- '{}' > 'dist/{}.tmp'
+          zip -9TXlr ${{ steps.vars.outputs.filename }} dist/
       -
         name: Create release
         env:
@@ -31,7 +33,7 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: Release ${{ github.ref }}
+          release_name: ${{ github.ref }}
           tag_name: ${{ github.ref }}
       -
         name: Upload release asset
