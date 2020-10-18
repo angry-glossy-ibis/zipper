@@ -16,7 +16,7 @@ jobs:
       -
         name: Build project!
         run: |
-          zip -9TXr azaza.zip dist/
+          zip -9TXr my-super-duper4.zip dist/
       -
         name: Create Release!
         id: create_release
@@ -36,5 +36,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_name: my-super-duper3.zip
+          asset_path: ./my-super-duper4.zip
+          asset_name: my-super-duper4.zip
           asset_content_type: application/zip
