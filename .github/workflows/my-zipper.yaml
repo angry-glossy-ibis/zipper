@@ -23,7 +23,7 @@ jobs:
         name: Build project
         run: |
           find ${{ steps.vars.outputs.srcdir }} -type f -exec sh -c "iconv -f UTF-8 -t CP1251 -- '{}' > '{}.tmp' && mv -- '{}.tmp' '{}'" \;
-          zip -9TXlr ${{ steps.vars.outputs.filename }} ${{ steps.vars.outputs.srcdir }}
+          cd ${{ steps.vars.outputs.srcdir }} && zip -9TXlr -- ../${{ steps.vars.outputs.filename }} *
       -
         name: Create release
         env:
