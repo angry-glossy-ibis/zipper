@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-    - 'v*'
+      - 'v*'
 
 name: My Upload Release Asset!!!!!!!!!!!!!!!!!
 
@@ -11,19 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Checkout source code
-        uses: actions/checkout@v2
-      -
         name: Set variables
         id: vars
         run: |
-          echo ::set-output name=filename::f-out-nevada-text-fix-${GITHUB_REF/refs\/tags\/v/}.zip
+          echo ::set-output name=filename::${GITHUB_REPOSITORY/${GITHUB_ACTOR}\/}-${GITHUB_REF/refs\/tags\/v}.zip
           echo ::set-output name=srcdir::src
+      -
+        name: Checkout source code
+        uses: actions/checkout@v2
       -
         name: Build project
         run: |
           find ${{ steps.vars.outputs.srcdir }} -type f -exec sh -c " \
-            iconv -f UTF-8 -t CP1251 -- '{}' > '{}.tmp' && mv -- '{}.tmp' '{}' \
+            iconv -f UTF-8 -t CP1251 -- '{}' > '{}.tmp' \
+            && mv -- '{}.tmp' '{}' \
           " \;
           cd ${{ steps.vars.outputs.srcdir }} \
           && zip -9TXlr ../${{ steps.vars.outputs.filename }} *
@@ -47,5 +48,5 @@ jobs:
         with:
           asset_content_type: application/zip
           asset_name: ${{ steps.vars.outputs.filename }}
-          asset_path: ./${{ steps.vars.outputs.filename }}
+          asset_path: ${{ steps.vars.outputs.filename }}
           upload_url: ${{ steps.create_release.outputs.upload_url }}

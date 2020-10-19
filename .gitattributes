@@ -1,0 +1,25 @@
+*              text=auto eol=lf        whitespace=indent-with-non-tab,tabwidth=1
+
+# EditorConfig.
+.editorconfig  text
+
+# F-out.
+*.[Bb][Ii][Oo] text
+*.[Ll][Ss][Tt] text
+*.[Mm][Ss][Gg] text
+*.[Ss][Vv][Ee] text
+*.[Tt][Xx][Tt] text
+
+# Git.
+.gitattributes text
+.gitignore     text
+
+# Markdown.
+# 4-space indentation is required.
+*.md           text      diff=markdown whitespace=tab-in-indent,tabwidth=4
+
+# Makefile.
+Makefile       text
+
+# YAML.
+*.yaml         text                    whitespace=tab-in-indent,tabwidth=2
